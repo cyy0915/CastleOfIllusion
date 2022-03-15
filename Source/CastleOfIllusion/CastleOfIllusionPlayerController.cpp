@@ -31,12 +31,15 @@ void ACastleOfIllusionPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("SetDestination", IE_Pressed, this, &ACastleOfIllusionPlayerController::OnSetDestinationPressed);
 	InputComponent->BindAction("SetDestination", IE_Released, this, &ACastleOfIllusionPlayerController::OnSetDestinationReleased);
-
+	
 	// support touch devices 
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ACastleOfIllusionPlayerController::MoveToTouchLocation);
 	InputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ACastleOfIllusionPlayerController::MoveToTouchLocation);
 
 	InputComponent->BindAction("ResetVR", IE_Pressed, this, &ACastleOfIllusionPlayerController::OnResetVR);
+
+	InputComponent->BindAxis("MoveForward", this, &ACastleOfIllusionPlayerController::MoveForward);
+	InputComponent->BindAxis("MoveRight", this, &ACastleOfIllusionPlayerController::MoveRight);
 }
 
 void ACastleOfIllusionPlayerController::OnResetVR()
@@ -110,3 +113,14 @@ void ACastleOfIllusionPlayerController::OnSetDestinationReleased()
 	// clear flag to indicate we should stop updating the destination
 	bMoveToMouseCursor = false;
 }
+
+void ACastleOfIllusionPlayerController::MoveForward(float a)
+{
+	GetPawn()->AddMovementInput(FVector(0, -1, 0), a);
+}
+
+void ACastleOfIllusionPlayerController::MoveRight(float a)
+{
+	GetPawn()->AddMovementInput(FVector(1, 0, 0), a);
+}
+
