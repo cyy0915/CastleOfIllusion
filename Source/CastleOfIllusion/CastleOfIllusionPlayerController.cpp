@@ -95,7 +95,7 @@ void ACastleOfIllusionPlayerController::SetNewMoveDestination(const FVector Dest
 		float const Distance = FVector::Dist(DestLocation, MyPawn->GetActorLocation());
 
 		// We need to issue move command only if far enough in order for walk animation to play correctly
-		if ((Distance > 120.0f))
+		if (true)
 		{
 			UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, DestLocation);
 		}
